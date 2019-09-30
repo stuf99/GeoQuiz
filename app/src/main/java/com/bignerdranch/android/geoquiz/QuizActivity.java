@@ -25,12 +25,12 @@ public class QuizActivity extends AppCompatActivity {
     private boolean mIsCheater;
 
     private Question[] mQuestionBank = new Question[] {
-            new Question(R.string.question_australia, true),
-            new Question(R.string.question_oceans, true),
-            new Question(R.string.question_mideast, false),
-            new Question(R.string.question_africa, false),
-            new Question(R.string.question_americas, true),
-            new Question(R.string.question_asia, true),
+            new Question(R.string.question_australia, true, false),
+            new Question(R.string.question_oceans, true, false),
+            new Question(R.string.question_mideast, false, false),
+            new Question(R.string.question_africa, false, false),
+            new Question(R.string.question_americas, true, false),
+            new Question(R.string.question_asia, true, false),
     };
 
     private int mCurrentIndex = 0;
@@ -39,6 +39,12 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate(Bundle) called");
         super.onCreate(savedInstanceState);
+        if ( savedInstanceState != null) {
+            mIsCheater = savedInstanceState.getBoolean("answerButton", false);
+        }
+        if (mIsCheater) {
+            mQuestionBank[mCurrentIndex].setmCheated(mIsCheater);
+        }
         setContentView(R.layout.activity_quiz);
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
         mQuestionTextView.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +123,8 @@ public class QuizActivity extends AppCompatActivity {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
 
         int messageResId = 0;
-        if (mIsCheater) {
+        if (mIsCheater || mQuestionBank[mCurrentIndex].ismCheated()) {
+            mQuestionBank[mCurrentIndex].setmCheated(true);
             messageResId = R.string.judgment_toast;
         } else {
             if (userPressedTrue == answerIsTrue) {
@@ -161,6 +168,9 @@ public class QuizActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean("answerButton", mIsCheater);
 
     }
 }

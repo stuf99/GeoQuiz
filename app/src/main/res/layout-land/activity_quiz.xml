@@ -13,6 +13,7 @@
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
             android:orientation="horizontal" >
 
         <Button
@@ -31,12 +32,14 @@
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
             android:orientation="horizontal" >
 
     <ImageButton
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
             android:src="@drawable/arrow_left"
             android:contentDescription=""
     />
@@ -51,6 +54,7 @@
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
             android:src="@drawable/arrow_right"
             android:contentDescription=""
             />
